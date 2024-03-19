@@ -1,7 +1,7 @@
 import WeatherViewModel from "./WeatherViewModel"
 
 export default function WeatherView() {
-    const {state, onSearchTextChange, onSearchClick} = WeatherViewModel()
+    const { state, onSearchTextChange, onSearchClick } = WeatherViewModel()
     return (
         <div>
             <input type="text" value={state.city} onChange={onSearchTextChange} />
