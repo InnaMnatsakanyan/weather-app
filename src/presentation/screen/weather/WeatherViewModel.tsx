@@ -16,7 +16,7 @@ export default function WeatherViewModel() {
         }))
     }
 
-    function onSearchClick(_: React.MouseEvent<HTMLElement>) {
+    function onSearchClick() {
         setState((prevState) => ({
             ...prevState,
             counter: prevState.counter + 100
