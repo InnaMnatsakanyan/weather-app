@@ -1,31 +1,31 @@
 import React, { useState } from "react"
-import {ApiService, GetWeatherData} from "../../../data/service/apiService";
+import {ApiService} from "../../../data/service/apiService";
+import {WeatherCurrentData} from "../../../data/model/WeatherData";
 
-class WeatherState {
-    readonly city: string = ""
-    readonly counter: number = 0
-    readonly data: GetWeatherData = {} as GetWeatherData
+interface WeatherState {
+    readonly city: string
+    readonly data?: WeatherCurrentData
 }
 
 export default function WeatherViewModel( apiService: ApiService ) {
-    const [ state, setState] = useState(new WeatherState())
+    const [ state, setState] = useState<WeatherState>({
+        city: ""
+    })
 
     function onSearchTextChange(changeEvent: React.ChangeEvent<HTMLInputElement>) {
         setState((prevState) => ({
             ...prevState,
-            city: changeEvent.target.value,
-            counter: prevState.counter + 1
+            city: changeEvent.target.value
         }))
     }
 
     function onSearchClick() {
         (async () => {
             try {
-                let data = await apiService.getWeatherData(state.city)
+                let data = await apiService.getCurrentWeather(state.city)
                 setState((prevState) => ({
                     ...prevState,
                     city: prevState.city,
-                    counter: prevState.counter + 100,
                     data: data
                 }))
             } catch (e) {

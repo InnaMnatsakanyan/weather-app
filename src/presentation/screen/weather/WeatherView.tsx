@@ -7,7 +7,6 @@ export default function WeatherView() {
         <div>
             <input type="text" value={state.city} onChange={onSearchTextChange} />
             <button onClick={onSearchClick}>Search</button>
-            <p>Current value: {state.counter}</p>
         </div>
     )
 }
