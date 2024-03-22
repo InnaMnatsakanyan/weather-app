@@ -1,28 +1,28 @@
 export interface WeatherCurrentData {
-    coord: {
-        lon: string,
-        lat: string
+    readonly coord: {
+        readonly lon: string,
+        readonly lat: string
     },
-    weather: [{
-        id: string,
-        main: string,
-        description: string,
-        icon: string
+    readonly weather: [{
+        readonly id: string,
+        readonly main: string,
+        readonly description: string,
+        readonly icon: string
     }],
-    main: {
-        temp: number,
-        feels_like: string,
-        temp_min: string,
-        temp_max: string,
-        pressure: string,
-        humidity: string
+    readonly main: {
+        readonly temp: number,
+        readonly feels_like: number,
+        readonly temp_min: string,
+        readonly temp_max: string,
+        readonly pressure: string,
+        readonly humidity: string
     }
-    visibility: string,
-    dt: string,
-    timezone: string,
-    id: string,
-    name: string,
-    cod: string
+    readonly visibility: string,
+    readonly dt: number, //unix
+    readonly timezone: string,
+    readonly id: string,
+    readonly name: string,
+    readonly cod: string
 }
 
 export interface WeatherForecastData {

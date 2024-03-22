@@ -1,13 +1,17 @@
 import React, { useState } from "react"
 import {ApiService} from "../../../data/service/apiService";
-import {WeatherCurrentData} from "../../../data/model/WeatherData";
+import {WeatherUITimeCell} from "./model/WeatherUITimeCell";
+import {WeatherUICurrentMapper} from "./mapper/WeatherUICurrentMapper";
 
 interface WeatherState {
     readonly city: string
-    readonly data?: WeatherCurrentData
+    readonly currentData?: WeatherUITimeCell
 }
 
-export default function WeatherViewModel( apiService: ApiService ) {
+export default function WeatherViewModel(
+    apiService: ApiService,
+    uiCurrentMapper: WeatherUICurrentMapper
+) {
     const [ state, setState] = useState<WeatherState>({
         city: ""
     })
@@ -22,11 +26,11 @@ export default function WeatherViewModel( apiService: ApiService ) {
     function onSearchClick() {
         (async () => {
             try {
-                let data = await apiService.getCurrentWeather(state.city)
+                let currentData = await apiService.getCurrentWeather(state.city)
                 setState((prevState) => ({
                     ...prevState,
                     city: prevState.city,
-                    data: data
+                    currentData: uiCurrentMapper.toUITimeCell(currentData)
                 }))
             } catch (e) {
                 console.error()

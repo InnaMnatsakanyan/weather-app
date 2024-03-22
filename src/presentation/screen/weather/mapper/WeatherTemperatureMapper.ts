@@ -1,7 +1,9 @@
-export function toCelsius(temp: number) : number {
-    return Math.floor(temp - 273)
-}
+export class WeatherTemperatureMapper {
+    toCelsius(temperature: number) : string {
+        return Math.floor(temperature - 273) + 'C°'
+    }
 
-export function toFahrenheit(temp: number) : number {
-    return Math.floor(toCelsius(temp) * (9 / 5) + 32)
+    toFahrenheit(temperature: number) : string {
+        return Math.floor(temperature - 273) * 9/5 + 32 + 'F°'
+    }
 }
