@@ -1,16 +1,16 @@
 import {WeatherCurrentData} from "../../../../data/model/WeatherData";
 import {WeatherUITimeCell} from "../model/WeatherUITimeCell";
-import {WeatherDateTimeMapper} from "./WeatherDateTimeMapper";
-import {WeatherTemperatureMapper} from "./WeatherTemperatureMapper";
+import {WeatherUIDateTimeMapper} from "./WeatherUIDateTimeMapper";
+import {WeatherUITemperatureMapper} from "./WeatherUITemperatureMapper";
 
 export class WeatherUICurrentMapper {
 
-    private readonly dateTimeMapper: WeatherDateTimeMapper
-    private readonly temperatureMapper: WeatherTemperatureMapper
+    private readonly dateTimeMapper: WeatherUIDateTimeMapper
+    private readonly temperatureMapper: WeatherUITemperatureMapper
 
     constructor(
-        dateTimeMapper: WeatherDateTimeMapper,
-        temperatureMapper: WeatherTemperatureMapper
+        dateTimeMapper: WeatherUIDateTimeMapper,
+        temperatureMapper: WeatherUITemperatureMapper
     ) {
         this.dateTimeMapper = dateTimeMapper
         this.temperatureMapper = temperatureMapper
@@ -18,9 +18,10 @@ export class WeatherUICurrentMapper {
 
     toUITimeCell(data: WeatherCurrentData) : WeatherUITimeCell {
         return {
+            city: data.name,
             time: this.dateTimeMapper.toTime(data.dt),
             temperature: this.temperatureMapper.toCelsius(data.main.temp),
-            icon_url: 'https://openweathermap.org/img/wn/' + data.weather["0"].icon + '@2x.png',
+            icon_url: 'https://openweathermap.org/img/wn/' + data.weather["0"].icon + '@4x.png',
             icon_alt: data.weather["0"].main,
             humidity: data.main.humidity + '%',
             feels_like: this.temperatureMapper.toCelsius(data.main.feels_like),

@@ -1,12 +1,11 @@
 import React from 'react';
-import WeatherView from './presentation/screen/weather/WeatherView';
+import WeatherScreen from './presentation/screen/weather/WeatherScreen';
 
 
 const App: React.FC = () => {
   return (
       <div>
-        <h1>Weather App</h1>
-        <WeatherView/>
+        <WeatherScreen/>
       </div>
   );
 };

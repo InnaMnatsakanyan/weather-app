@@ -1,5 +1,5 @@
 import React, { useState } from "react"
-import {ApiService} from "../../../data/service/apiService";
+import {ApiService} from "../../../data/service/ApiService";
 import {WeatherUITimeCell} from "./model/WeatherUITimeCell";
 import {WeatherUICurrentMapper} from "./mapper/WeatherUICurrentMapper";
 
@@ -8,7 +8,7 @@ interface WeatherState {
     readonly currentData?: WeatherUITimeCell
 }
 
-export default function WeatherViewModel(
+export default function WeatherScreenModel(
     apiService: ApiService,
     uiCurrentMapper: WeatherUICurrentMapper
 ) {
@@ -30,7 +30,7 @@ export default function WeatherViewModel(
                 setState((prevState) => ({
                     ...prevState,
                     city: prevState.city,
-                    currentData: uiCurrentMapper.toUITimeCell(currentData)
+                    currentData: uiCurrentMapper.toUITimeCell(currentData),
                 }))
             } catch (e) {
                 console.error()
