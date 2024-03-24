@@ -1,16 +1,21 @@
-import React, { useState } from "react"
+import React, { useState} from "react"
 import {ApiService} from "../../../data/service/ApiService";
 import {WeatherUITimeCell} from "./model/WeatherUITimeCell";
 import {WeatherUICurrentMapper} from "./mapper/WeatherUICurrentMapper";
+import {WeatherUIForecastDayCell} from "./model/WeatherUIForecastDayCell";
+import {WeatherUIForecastDayCellMapper} from "./mapper/WeatherUIForecastDayCellMapper";
 
 interface WeatherState {
     readonly city: string
     readonly currentData?: WeatherUITimeCell
+    readonly forecastWeekData?: WeatherUIForecastDayCell[]
 }
 
 export default function WeatherScreenModel(
     apiService: ApiService,
-    uiCurrentMapper: WeatherUICurrentMapper
+    uiCurrentMapper: WeatherUICurrentMapper,
+    uiForecastDayMapper: WeatherUIForecastDayCellMapper
+
 ) {
     const [ state, setState] = useState<WeatherState>({
         city: ""
@@ -26,11 +31,15 @@ export default function WeatherScreenModel(
     function onSearchClick() {
         (async () => {
             try {
-                let currentData = await apiService.getCurrentWeather(state.city)
+                let currentDataPromise = apiService.getCurrentWeather(state.city)
+                let forecastDataPromise = apiService.getForecastWeather(state.city)
+                let currentDats = await currentDataPromise
+                let forecastData = await forecastDataPromise
                 setState((prevState) => ({
                     ...prevState,
                     city: prevState.city,
-                    currentData: uiCurrentMapper.toUITimeCell(currentData),
+                    currentData: uiCurrentMapper.toUITimeCell(currentDats),
+                    forecastWeekData: uiForecastDayMapper.toUIForecastDayCell(forecastData)
                 }))
             } catch (e) {
                 console.error()

@@ -1,6 +1,6 @@
 export interface WeatherUITimeCell {
     readonly city: string
-    readonly time: string
+    readonly dateTime: string
     readonly temperature: string
     readonly icon_url: string
     readonly icon_alt: string

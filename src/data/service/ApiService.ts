@@ -1,6 +1,7 @@
 import axios from 'axios-typescript';
-import {WeatherCurrentData, WeatherForecastData} from "../model/WeatherData";
+import {WeatherCurrentData} from "../model/WeatherCurrentData";
 import {AxiosResponse} from "axios-typescript/dist/types";
+import {WeatherForecastData} from "../model/WeatherForecastData";
 
 export class ApiService {
     private static readonly baseurl = `https://api.openweathermap.org/data/2.5/`
@@ -9,14 +10,11 @@ export class ApiService {
 
     getCurrentWeather = async (city: string) : Promise<WeatherCurrentData> => {
         const response: AxiosResponse = await axios.get(ApiService.baseurl + `weather?q=` + city + ApiService.apiKey)
-        const data : WeatherCurrentData = JSON.parse(response.data)
-        console.log(new Date(data.dt * 1000).getHours().toLocaleString() + ':' + new Date(data.dt * 1000).getMinutes().toLocaleString())
-        return data
+        return JSON.parse(response.data)
     }
 
-    getForecastWeather = async (city: string) => {
-        let response = await axios.get(ApiService.baseurl + `forecast/hourly?q=` + city + ApiService.apiKey)
-        console.log(response.data);
-        return response.data as WeatherForecastData
+    getForecastWeather = async (city: string) : Promise<WeatherForecastData> => {
+        let response: AxiosResponse = await axios.get(ApiService.baseurl + `forecast?q=` + city + ApiService.apiKey)
+        return JSON.parse(response.data)
     }
 }
