@@ -73,16 +73,6 @@ export default function WeatherScreen() {
                     />
                 )) : null}
             </div>
-
-            <div ref={myRef} className='fullForecastWeather'>
-                <h1>Forecast Weather</h1>
-                {forecastState ? forecastState.map((forecast) => (
-                    <WeatherForecastDayCellView
-                        date={forecast.date}
-                        items={forecast.items}
-                    />
-                )) : null}
-            </div>
         </div>
     )
 }
