@@ -27,7 +27,7 @@ export default function WeatherScreen() {
         )
     )
 
-    const { state, onSearchTextChange, onSearchClick } = WeatherScreenModel(new ApiService(), currentMapper, forecastMapper)
+    const { state, onSearchTextChange, onSearchClick, onKeyPress } = WeatherScreenModel(new ApiService(), currentMapper, forecastMapper)
     const currentState = state.currentData
     const forecastState = state.forecastWeekData
     const myRef = useRef<null | HTMLDivElement>(null)
@@ -38,7 +38,9 @@ export default function WeatherScreen() {
             <div className='searchAndCurrent'>
                 <div className='searchClass'>
                     <input className='cityInput' type="text" placeholder='Search for location' value={state.city}
-                           onChange={onSearchTextChange}/>
+                           onChange={onSearchTextChange}
+                           onKeyDown={onKeyPress}
+                    />
                     <button className='searchButton' onClick={onSearchClick}>
                         <img src={SearchIcon} height='24px' width='24px' alt=""/>
                     </button>

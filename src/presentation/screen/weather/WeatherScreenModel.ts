@@ -1,4 +1,4 @@
-import React, { useState} from "react"
+import React, {useState} from "react"
 import {ApiService} from "../../../data/service/ApiService";
 import {WeatherUITimeCell} from "./model/WeatherUITimeCell";
 import {WeatherUICurrentMapper} from "./mapper/WeatherUICurrentMapper";
@@ -47,9 +47,16 @@ export default function WeatherScreenModel(
         })();
     }
 
+    const onKeyPress = (e: React.KeyboardEvent<HTMLInputElement>) =>{
+        if( e.key === 'Enter' ){
+            onSearchClick();
+        }
+    };
+
     return {
         state,
         onSearchTextChange,
-        onSearchClick
+        onSearchClick,
+        onKeyPress
     }
 }
